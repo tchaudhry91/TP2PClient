@@ -15,7 +15,7 @@ def generate_fl(root_dir, username):
         os.chdir('Open')
         for f_file in os.listdir('.'):
             stat = os.stat(f_file)
-            fl_obj.addOpenFile(f_file, stat.st_size)
+            fl_obj.addOpenFile(f_file, size=stat.st_size)
         os.chdir('..')
     except(OSError):
         os.mkdir('Open')
@@ -26,7 +26,7 @@ def generate_fl(root_dir, username):
         os.chdir('Private')
         for f_file in os.listdir('.'):
             stat = os.stat(f_file)
-            fl_obj.addPrivFile(f_file, stat.st_size)
+            fl_obj.addPrivFile(f_file, size=stat.st_size)
         os.chdir('..')
     except(OSError):
         os.mkdir('Private')

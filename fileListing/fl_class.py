@@ -4,9 +4,9 @@ class FileListing():
         self.username = ""
         self.friends = []
         self.files_open = []
-        self.sizes_open = {}
+        self.meta_open = {}
         self.files_priv = []
-        self.sizes_priv = {}
+        self.meta_priv = {}
     
     def setUsername(self,username):
         self.username = username
@@ -14,13 +14,13 @@ class FileListing():
     def addFriend(self,friend):
         self.friends.append(friend)
     
-    def addOpenFile(self,f_file,size):
+    def addOpenFile(self,f_file, size=0):
         self.files_open.append(f_file)
-        self.sizes_open[f_file] = size
+        self.meta_open[f_file] = (size,)
         
-    def addPrivFile(self,f_file,size):
+    def addPrivFile(self,f_file, size=0):
         self.files_priv.append(f_file)
-        self.sizes_priv[f_file] = size
+        self.meta_priv[f_file] = (size,)
 
     def getIp(self):
         return self.ip_add
@@ -34,9 +34,9 @@ class FileListing():
     def getPrivateFiles(self):
         return self.files_priv
     
-    def getOpenSizes(self):
-        return self.sizes_open
+    def getOpenMeta(self):
+        return self.meta_open
     
-    def getPrivSizes(self):
-        return self.sizes_priv    
+    def getPrivMeta(self):
+        return self.meta_priv    
         
