@@ -42,5 +42,5 @@ class FileRequestFactory(protocol.ClientFactory):
     def buildProtocol(self, addr):
         return FileRequestProtocol(self.commands, self.file_name)
     
-def requestFile(host, commands, file_name, port=9876):
+def requestFile(host, file_name, commands, port=9876):
     reactor.connectTCP(host, port, FileRequestFactory(commands, file_name))

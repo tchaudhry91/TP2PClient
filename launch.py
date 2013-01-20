@@ -1,6 +1,7 @@
 import sys
 from fileListing import generate_fl
-from fileTransfer import fileServer, clientPrompt
+from fileTransfer import fileServer
+from cli import clientPrompt
 from twisted.internet import reactor
   
 
@@ -12,6 +13,7 @@ if __name__=="__main__":
     print("File Listing Created..")
     
     fileServer.startServer(root_dir, port)
-    reactor.callWhenRunning(clientPrompt.startPrompt)
+    clientPrompt.startPrompt()
     reactor.run()
+    
     

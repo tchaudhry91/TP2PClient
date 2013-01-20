@@ -33,6 +33,7 @@ def generate_fl(root_dir, username):
         
     pickle.dump(fl_obj,file_ls)
     file_ls.close()
+    os.chdir(root_dir)
     
     
     
