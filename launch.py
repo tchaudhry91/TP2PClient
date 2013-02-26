@@ -7,9 +7,10 @@ from twisted.internet import reactor
 
 if __name__=="__main__": 
     root_dir = sys.argv[1]
+    server_ip = sys.argv[2]
     port = 9876
     
-    generate_fl.generate_fl(root_dir,"tuxybuzz")
+    generate_fl.generate_fl(root_dir,"tuxybuzz", server_ip)
     print("File Listing Created..")
     
     fileServer.startServer(root_dir, port)

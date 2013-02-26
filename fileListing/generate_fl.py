@@ -1,8 +1,8 @@
 import os
 import pickle
-from . import fl_class
+from . import fl_class, sendListing
 
-def generate_fl(root_dir, username):
+def generate_fl(root_dir, username, server_ip):
     #Generate and Store the FileListing
     fl_obj = fl_class.FileListing()   
     fl_obj.setUsername(username)
@@ -33,7 +33,6 @@ def generate_fl(root_dir, username):
         
     pickle.dump(fl_obj,file_ls)
     file_ls.close()
-    os.chdir(root_dir)
-    
+    sendListing.sendListing(server_ip, root_dir, username)    
     
     
