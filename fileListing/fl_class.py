@@ -34,9 +34,9 @@ class FileListing():
     def getPrivateFiles(self):
         return self.files_priv
     
-    def getOpenMeta(self):
-        return self.meta_open
+    def getOpenMeta(self, file_name):
+        return self.meta_open[file_name]
     
-    def getPrivMeta(self):
-        return self.meta_priv    
+    def getPrivMeta(self, file_name):
+        return self.meta_priv[file_name]  
         

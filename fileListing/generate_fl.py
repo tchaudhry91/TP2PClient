@@ -33,6 +33,7 @@ def generate_fl(root_dir, username, server_ip):
         
     pickle.dump(fl_obj,file_ls)
     file_ls.close()
-    sendListing.sendListing(server_ip, root_dir, username)    
+    sendListing.sendListing(server_ip, root_dir, username) 
+    os.chdir(root_dir)   
     
     
