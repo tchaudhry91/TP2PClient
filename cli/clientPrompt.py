@@ -1,7 +1,8 @@
 from twisted.internet import stdio
 from twisted.protocols import basic
 from fileTransfer import fileClient
-import sys
+from fileListing.descriptor import Descriptor
+import pickle
 
 class ClientPrompt(basic.LineReceiver):
     from os import linesep as delimiter
@@ -16,9 +17,12 @@ class ClientPrompt(basic.LineReceiver):
 def startPrompt():
     stdio.StandardIO(ClientPrompt())
 
-def dispatchDescriptor(descriptor):
-    print "Will Dispatch Now"
-    fileClient.requestFile('localhost', 'IT.pdf', ['get IT.pdf'], 9876)    
+def dispatchDescriptor(descriptor_file):
+    print("Unpacking Descriptor...")
+    descriptor_file = open(descriptor_file, 'rb')
+    descriptor = pickle.load(descriptor_file)    
+    command = 'get '+descriptor.getFileName()
+    fileClient.requestFile(descriptor.getFileHost(), descriptor.getFileName(), [command], 9876)    
 
 def dispatchExit():
     pass
