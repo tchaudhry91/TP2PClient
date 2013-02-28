@@ -11,6 +11,9 @@ class FileListing():
     def setUsername(self,username):
         self.username = username
     
+    def setIp(self, ip):
+        self.ip_add = ip
+    
     def addFriend(self,friend):
         self.friends.append(friend)
     

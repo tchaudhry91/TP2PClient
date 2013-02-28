@@ -1,6 +1,7 @@
 import os
 import pickle
-from . import fl_class, sendListing
+import sendListing
+import fl_class
 
 def generate_fl(root_dir, username, server_ip):
     #Generate and Store the FileListing
