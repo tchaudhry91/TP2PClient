@@ -2,20 +2,24 @@ from twisted.internet import stdio
 from twisted.protocols import basic
 from fileTransfer import fileClient
 from fileListing.descriptor import Descriptor
+from fileListing import sendSearchRequest
 import pickle
 
 class ClientPrompt(basic.LineReceiver):
     from os import linesep as delimiter
+    
+    def __init__(self, server_ip):
+        self.server_ip = server_ip
 
     def connectionMade(self):
         self.transport.write('>>> ')
 
     def lineReceived(self, line):
-        buildCommand(line)
+        buildCommand(line, self.server_ip)
         self.transport.write('>>> ')
         
-def startPrompt():
-    stdio.StandardIO(ClientPrompt())
+def startPrompt(server_ip):
+    stdio.StandardIO(ClientPrompt(server_ip))
 
 def dispatchDescriptor(descriptor_file):
     print("Unpacking Descriptor...")
@@ -27,7 +31,7 @@ def dispatchDescriptor(descriptor_file):
 def dispatchExit():
     pass
     
-def buildCommand(line):
+def buildCommand(line, server_ip):
     commands = line.split(' ')
     base_command = commands[0]
     if base_command == "get":
@@ -36,3 +40,7 @@ def buildCommand(line):
     
     if base_command == "exit":
         dispatchExit()
+    
+    if base_command == "search":
+        sendSearchRequest.sendSearchRequest(server_ip, commands[1])
+        

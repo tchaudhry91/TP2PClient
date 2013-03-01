@@ -13,7 +13,7 @@ if __name__=="__main__":
     print("File Listing Created..")
     
     fileServer.startServer(root_dir, port)
-    clientPrompt.startPrompt()
+    clientPrompt.startPrompt(server_ip)
     reactor.run()
     
     
