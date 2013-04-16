@@ -26,7 +26,7 @@ def dispatchDescriptor(descriptor_file):
     print("Unpacking Descriptor...")
     descriptor_file = open(descriptor_file, 'rb')
     descriptor = pickle.load(descriptor_file)    
-    command = 'get '+descriptor.getFileName()
+    command = 'download '+descriptor.getFileName()
     fileClient.requestFile(descriptor.getFileHost(), descriptor.getFileName(), [command], 9876)    
 
 def dispatchExit():
@@ -35,7 +35,7 @@ def dispatchExit():
 def buildCommand(line, server_ip):
     commands = line.split(' ')
     base_command = commands[0]
-    if base_command == "get":
+    if base_command == "download":
         try:
             descriptor = commands[1]
             dispatchDescriptor(descriptor)
@@ -47,11 +47,12 @@ def buildCommand(line, server_ip):
     if base_command == "exit":
         dispatchExit()
     
+    if base_command == "get":
+        pass
+        
     if base_command == "search":
         try:
-            sendSearchRequest.sendSearchRequest(server_ip, commands[1])
+            sendSearchRequest.sendSearchRequest(server_ip, base_command, commands[1])
         except IndexError:
             print("No FileName to Search")
-        except IOError:
-            print("No Such Descriptor")
         

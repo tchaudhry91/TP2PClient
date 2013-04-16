@@ -25,7 +25,7 @@ class FileServerProtocol(basic.LineReceiver):
             elif line[0] == 'private':
                 self.root_dir_new = os.path.join(self.root_dir, 'Private')
                 print("SERVER:Changed to Private Directory")
-            elif line[0] == 'get':
+            elif line[0] == 'download':
                 try:
                     self.file_handler = open(os.path.join(self.root_dir_new, line[1]))
                     self.sendLine('RAW DATA')
@@ -65,7 +65,7 @@ def readChunks(file_handler, chunk_size=1024000):
 def validateCommand(line):
     if line[0].lower() == 'exit':
         return True
-    elif line[0].lower() == 'get':
+    elif line[0].lower() == 'download':
         if line[1]:        
             return True
     elif line[0].lower() == 'private':
