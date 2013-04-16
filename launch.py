@@ -5,8 +5,12 @@ from cli import clientPrompt
 from twisted.internet import reactor
   
 if __name__=="__main__": 
-    root_dir = sys.argv[1]
-    server_ip = sys.argv[2]
+    try:
+        root_dir = sys.argv[1]
+        server_ip = sys.argv[2]
+    except:
+        root_dir = raw_input("Enter Root Directory:")
+        server_ip = raw_input("Enter Main Server IP:")
     port = 9876
     user_name = raw_input("Login:")
     generate_fl.generate_fl(root_dir,user_name, server_ip)

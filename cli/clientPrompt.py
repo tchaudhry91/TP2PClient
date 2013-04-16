@@ -4,6 +4,7 @@ from fileTransfer import fileClient
 from fileListing.descriptor import Descriptor
 from fileListing import sendSearchRequest
 import pickle
+import sys
 
 class ClientPrompt(basic.LineReceiver):
     from os import linesep as delimiter
@@ -29,18 +30,28 @@ def dispatchDescriptor(descriptor_file):
     fileClient.requestFile(descriptor.getFileHost(), descriptor.getFileName(), [command], 9876)    
 
 def dispatchExit():
-    pass
+    sys.exit(0)
     
 def buildCommand(line, server_ip):
     commands = line.split(' ')
     base_command = commands[0]
     if base_command == "get":
-        descriptor = commands[1]
-        dispatchDescriptor(descriptor)
+        try:
+            descriptor = commands[1]
+            dispatchDescriptor(descriptor)
+        except IndexError:
+            print("No Descriptor Provided")
+        except IOError:
+            print("No Such Descriptor")
     
     if base_command == "exit":
         dispatchExit()
     
     if base_command == "search":
-        sendSearchRequest.sendSearchRequest(server_ip, commands[1])
+        try:
+            sendSearchRequest.sendSearchRequest(server_ip, commands[1])
+        except IndexError:
+            print("No FileName to Search")
+        except IOError:
+            print("No Such Descriptor")
         
