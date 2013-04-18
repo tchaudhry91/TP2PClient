@@ -48,11 +48,16 @@ def buildCommand(line, server_ip):
         dispatchExit()
     
     if base_command == "get":
-        pass
-        
+        try:
+            sendSearchRequest.sendSearchRequest(server_ip, base_command, commands[1],
+                                                commands[2])
+        except IndexError:
+            print("Invalid Parameters")
+            
     if base_command == "search":
         try:
-            sendSearchRequest.sendSearchRequest(server_ip, base_command, commands[1])
+            sendSearchRequest.sendSearchRequest(server_ip, base_command, commands[1],
+                                                '')
         except IndexError:
             print("No FileName to Search")
         

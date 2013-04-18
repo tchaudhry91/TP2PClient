@@ -2,6 +2,7 @@ import os
 import pickle
 import sendListing
 import fl_class
+from fileListing import utilities
 
 def generate_fl(root_dir, username, server_ip):
     #Generate and Store the FileListing
@@ -9,6 +10,7 @@ def generate_fl(root_dir, username, server_ip):
     fl_obj.setUsername(username)
     
     os.chdir(root_dir)
+    utilities.cleanListings()
     file_ls = open(username+".fls","wb")
     
     #OPEN FILES
