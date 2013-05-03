@@ -3,8 +3,12 @@ from fileListing import generate_fl
 from fileTransfer import fileServer
 from cli import clientPrompt
 from twisted.internet import reactor
+from gui import main_gui
   
 if __name__=="__main__": 
+    gui = main_gui.MainGUI()
+    gui.build()
+    """
     try:
         root_dir = sys.argv[1]
         server_ip = sys.argv[2]
@@ -18,6 +22,7 @@ if __name__=="__main__":
     
     fileServer.startServer(root_dir, port)
     clientPrompt.startPrompt(server_ip)
+    """
     reactor.run()
     
     

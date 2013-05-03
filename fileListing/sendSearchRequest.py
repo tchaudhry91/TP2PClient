@@ -4,11 +4,12 @@ import os, pickle
 
 class SearchRequestProtocol(basic.LineReceiver):
     
-    def __init__(self, command, file_name, user_name):
+    def __init__(self, command, file_name, user_name, gui):
         self.command = command
         self.file_name = file_name
         self.user_name = user_name
         self.file_handler = None
+        self.gui = gui
         
     def connectionMade(self):
         print("Connected to Server..")
@@ -53,31 +54,38 @@ class SearchRequestProtocol(basic.LineReceiver):
                 self.handler.close()
                 print("Search List Received..Printing")
                 #PRINT HERE
-                printList(self.file_path)                
+                self.printList(self.file_path)                
                 self.setLineMode()
                 os.remove(self.file_path)
             else:
                 self.handler.write(data)
                 
-def printList(tempFile):
-    list = pickle.load(open(tempFile,'rb'))
-    for entry in list:
-        print("FILE : "+entry[0])
-        print("USER : "+entry[1])
-        print("\n\n")
+    def printList(self,tempFile):
+        result_string = ""
+        list = pickle.load(open(tempFile,'rb'))
+        for entry in list:
+            print("FILE : "+entry[0])
+            print("USER : "+entry[1])
+            print("\n\n")
+            result_string=result_string+entry[0]+'--'+entry[1]
+            result_string=result_string+" "
+            if self.gui:
+                self.gui.setSearchList(result_string)
                        
     
 class SearchRequestFactory(protocol.ClientFactory):
     protocol = SearchRequestProtocol
     
-    def __init__(self, command, file_name, user_name):
+    def __init__(self, command, file_name, user_name, gui):
         self.command = command
         self.file_name = file_name
         self.user_name = user_name
+        self.gui = gui
         
     def buildProtocol(self, addr):
-        return SearchRequestProtocol(self.command, self.file_name, self.user_name)
+        return SearchRequestProtocol(self.command, self.file_name, self.user_name,
+                                     self.gui)
     
-def sendSearchRequest(server_ip, command, file_name, user_name):
+def sendSearchRequest(server_ip, command, file_name, user_name, gui=None):
     reactor.connectTCP(server_ip, 9890,
-                        SearchRequestFactory(command, file_name, user_name))
+                        SearchRequestFactory(command, file_name, user_name, gui))
