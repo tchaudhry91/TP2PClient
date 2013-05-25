@@ -2,5 +2,7 @@ TP2P
 
 Final Year Undergrad Project. Peer to Peer File Sharing System.
 
+A simple implementation of Peer to Peer File Sharing System based along the lines of Napster. Started to learn the basics of twisted, event driven network programming.
+
 Tanmay Chaudhry
 tanmay.chaudhry@gmail.com

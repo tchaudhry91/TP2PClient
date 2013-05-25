@@ -1,7 +1,7 @@
 import sys
 from fileListing import generate_fl
 from fileTransfer import fileServer
-from cli import clientPrompt
+#from cli import clientPrompt
 from twisted.internet import reactor
 from gui import main_gui
   
