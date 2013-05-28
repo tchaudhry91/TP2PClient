@@ -111,7 +111,7 @@ class MainGUI():
     
     def download(self):
         index = self.descriptor_list.curselection()[0]
-        descriptor = self.descriptors.get().split(" ")[index]
+        descriptor = self.descriptors.get().split(" ")[int(index)]
         descriptor = descriptor.split("'")[1]
         self.dispatchDescriptor(descriptor)
     
