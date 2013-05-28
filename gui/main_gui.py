@@ -101,7 +101,7 @@ class MainGUI():
     def get(self):
         results = self.search_results.get().split(' ')
         index = self.search_list.curselection()
-        desc_info = results[index[0]].split("'")[1].split('--')
+        desc_info = results[int(index[0])].split("'")[1].split('--')
         self.setStatus(desc_info[0]+'--'+desc_info[1]+' Getting Descriptor..')
         sendSearchRequest.sendSearchRequest(self.server_ip.get(),
                                             'get', desc_info[0],
